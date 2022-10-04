@@ -79,3 +79,9 @@ function showInfo(e){
 } 
 
 // h4.textContent = `"Publisher:" ${e.target.genre}`
+
+
+//to do for tomorrow 10/5
+//1.get our drop down to actually filter
+//2.finish off remaining listeners which is going to be hover and submit
+//3.styling?
