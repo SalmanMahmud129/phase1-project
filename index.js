@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', fetcher)
 const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': 'c8423e676emsh3d25a3c5642015ep108633jsn03bcfb9d29a9',
-		'X-RapidAPI-Host': 'opencritic-api.p.rapidapi.com'
+		'X-RapidAPI-Key': '95f070c36cmsh0f4696c3c3adb22p1ac720jsn60ec90ae2c5f',
+		'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
 	}
 };
 
@@ -12,7 +12,7 @@ const options = {
 
 
 function fetcher(){
-fetch('https://opencritic-api.p.rapidapi.com/game/hall-of-fame/2020', options)
+fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?platform=browser&category=mmorpg&sort-by=release-date', options)
 	.then(response => response.json())
 	.then(response => {
 		console.log(response)
@@ -23,11 +23,18 @@ fetch('https://opencritic-api.p.rapidapi.com/game/hall-of-fame/2020', options)
 }
 
 function renderGame(gameData){
-	gameData.forEach(game =>{
+	for(let i = 0; i < 13; i++){
+		console.log('game ' + i)
 		const gameBar = document.getElementById('game-bar')
 		const newImg = document.createElement('img')
-		newImg.src = game.images.banner.og
+		newImg.src = gameData[i].thumbnail
 		gameBar.append(newImg)
+	}
+	// gameData.forEach(game =>{
+	// 	const gameBar = document.getElementById('game-bar')
+	// 	const newImg = document.createElement('img')
+	// 	newImg.src = game.thumbnail
+	// 	gameBar.append(newImg)
 		
-	})
+	// })
 } 
