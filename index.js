@@ -25,13 +25,22 @@ fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?platform=bro
 
 
 function renderGame(globalArray){
-	for(let i = 0; i < 13; i++){
+	const releaseYears = document.getElementById('releaseYears')
+	for(let i = 0; i < globalArray.length; i++){
 		// console.log('game ' + i)
+		const dropDownOption = document.createElement('option')
+		dropDownOption.textContent = globalArray[i].release_date.split('-')[0]
+		releaseYears.append(dropDownOption)
+
 		const gameBar = document.getElementById('game-bar')
 		const newImg = document.createElement('img')
 		newImg.src = globalArray[i].thumbnail
+
 		newImg.setAttribute('name', globalArray[i].title)
 		newImg.setAttribute('genre', globalArray[i].genre)
+		newImg.setAttribute('developer', globalArray[i].developer)
+		newImg.setAttribute('releaseDate', globalArray[i].release_date)
+
 		gameBar.append(newImg)
 		// const gameName = document.getElementById('name')
 		const gameName = document.getElementById('name')
@@ -43,12 +52,18 @@ function showInfo(e){
 	const gameName = document.getElementById('name')
 	const displayImg = document.getElementById('displayImg')
 	const genreTag = document.getElementById('genreTag')
+	const gameDeveloper = document.getElementById('developer')
+	const releaseDate = document.getElementById('releaseDate')
+
+
 	// displayImg.src = e.target.thumbnail
 	gameName.textContent = e.target.name
 	displayImg.src = e.target.src
 	// genreTag.textContent = e.target.genre
 	genreTag.innerText = `Genre: ${e.target.getAttribute('genre')}`
-	console.log(genreTag)
+	// console.log(genreTag)
+	gameDeveloper.innerText = `Developer: ${e.target.getAttribute('developer')}`
+	releaseDate.innerText = `Release Date: ${e.target.getAttribute('releaseDate')}`
 
 	
 
