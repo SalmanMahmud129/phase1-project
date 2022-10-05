@@ -9,7 +9,6 @@ const options = {
 };
 
 let globalArray = [];
-
 function fetcher(){
 fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?platform=browser&sort-by=release-date', options)
 	.then(response => response.json())
@@ -24,14 +23,27 @@ fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?platform=bro
 }
 
 
+// function populateDrop(){
+// // 	splitDates.forEach(year =>{
+// // 		const dropDownOption = document.createElement('option')
+// // 		dropDownOption.textContent = year
+// // 		releaseYears.append(dropDownOption)
+// // 		console.log('releaseYears:', releaseYears)
+// // 	})
+// // }
+
+let firstFour = [];
+
 function renderGame(globalArray){
 	const releaseYears = document.getElementById('releaseYears')
+	
+	
+	console.log(firstFour)
 	for(let i = 0; i < globalArray.length; i++){
 		// console.log('game ' + i)
-		const dropDownOption = document.createElement('option')
-		dropDownOption.textContent = globalArray[i].release_date.split('-')[0]
-		releaseYears.append(dropDownOption)
-
+		// const dropDownOption = document.createElement('option')
+		firstFour.push(globalArray[i].release_date.split('-')[0])
+		// releaseYears.append(dropDownOption)
 		const gameBar = document.getElementById('game-bar')
 		const newImg = document.createElement('img')
 		newImg.src = globalArray[i].thumbnail
@@ -40,13 +52,26 @@ function renderGame(globalArray){
 		newImg.setAttribute('genre', globalArray[i].genre)
 		newImg.setAttribute('developer', globalArray[i].developer)
 		newImg.setAttribute('releaseDate', globalArray[i].release_date)
-
 		gameBar.append(newImg)
 		// const gameName = document.getElementById('name')
 		const gameName = document.getElementById('name')
-
 		newImg.addEventListener('click', showInfo)
-}
+	}
+	let splitDates = [...new Set(firstFour)];
+	splitDates.forEach(year =>{
+		const dropDownOption = document.createElement('option')
+		dropDownOption.textContent = year
+		releaseYears.append(dropDownOption)
+	})
+	
+	releaseYears.addEventListener('change', ()=> {
+		const selectedYear = releaseYears.options[releaseYears.selectedIndex].value;
+		console.log(selectedYear)
+		console.log(splitDates)
+})
+
+
+
 
 function showInfo(e){
 	const gameName = document.getElementById('name')
@@ -68,6 +93,7 @@ function showInfo(e){
 	
 
 }
+}
 
 	// gameData.forEach(game =>{
 	// 	const gameBar = document.getElementById('game-bar')
@@ -76,7 +102,6 @@ function showInfo(e){
 	// 	gameBar.append(newImg)
 		
 	// })
-} 
 
 // h4.textContent = `"Publisher:" ${e.target.genre}`
 
@@ -85,3 +110,5 @@ function showInfo(e){
 //1.get our drop down to actually filter
 //2.finish off remaining listeners which is going to be hover and submit
 //3.styling?
+
+//event listener to select option
