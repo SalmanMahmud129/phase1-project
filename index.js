@@ -10,7 +10,7 @@ const options = {
 
 let globalArray = [];
 function fetcher(){
-fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?platform=browser&sort-by=2022', options)
+fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?platform=browser&sort-by=release-date', options)
 	.then(response => response.json())
 	.then(response => {
 		console.log(response)
@@ -26,7 +26,8 @@ fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?platform=bro
 	})
 		// .catch(err => console.error(err));
 
-})
+	})
+}
 
 
 
@@ -53,7 +54,7 @@ function renderGame(globalArray){
 		newImg.setAttribute('releaseDate', globalArray[i].release_date)
 		newImg.classList.add('gameIcon')
 		
-		// gameBar.append(newImg)
+		gameBar.append(newImg)
 		// const gameName = document.getElementById('name')
 		const gameName = document.getElementById('name')
 		newImg.addEventListener('click', showInfo)
@@ -63,21 +64,25 @@ function renderGame(globalArray){
 	// 	const dropDownOption = document.createElement('option')
 	// 	dropDownOption.textContent = year
 	// 	releaseYears.append(dropDownOption)
-	}
 	
-	releaseYears.addEventListener('change', ()=> {
+	releaseYears.addEventListener('change', (e)=> {
 		const selectedYear = releaseYears.options[releaseYears.selectedIndex].value
-		const gameIcon = document.getElementsByClassName('gameIcon')
-		const filtered = globalArray.filter(game =>{
-
+		const gameIcons = Array.from(document.getElementsByClassName('gameIcon'))
+		const filteredGames = gameIcons.filter(game =>{
+			console.log(game.getAttribute('releaseDate'))
+			if(selectedYear === game.getAttribute('releaseDate').split('-')[0]){
+				game.removeAttribute('hidden')
+			} else {
+				game.setAttribute('hidden', '')
+			} 
 		})
-			// if(selectedYear === gameIcon.getAttribute('releaseDate').split('-')[0]){
-			// 	gameBar.append(gameIcon.src)
-		})
+		document.querySelector('#game-bar')
+		console.log(filteredGames)
 		// console.log('releaseDate')
-
+	
 		// console.log(selectedYear)
 		// console.log(splitDates)
+	})
 }
 
 
@@ -119,5 +124,3 @@ function showInfo(e){
 //1.get our drop down to actually filter
 //2.finish off remaining listeners which is going to be hover and submit
 //3.styling?
-
-//event listener to select option
