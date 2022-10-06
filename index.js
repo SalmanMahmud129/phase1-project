@@ -135,18 +135,18 @@ function formHandling(){
 			alert("Too high of a score!")
 		}
 
-		
+		form.reset()
 	})
 
-	// formBtn.addEventListener('click',e =>{
-	// 	alert("Rating has been added! Whats gucci mane??????")
-	// })
+	formBtn.addEventListener('mouseenter',e =>{
+		e.target.style.backgroundColor = 'purple'
+	})
+	formBtn.addEventListener('mouseleave',e =>{
+		e.target.style.backgroundColor = 'rgb(49, 109, 179)'
+	})
 }
 
-function mouseHover(){
-	//grab elements
-	
-}
+
 
 
 
