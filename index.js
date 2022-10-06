@@ -10,29 +10,28 @@ const options = {
 
 let globalArray = [];
 function fetcher(){
-fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?platform=browser&sort-by=release-date', options)
+fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?platform=browser&sort-by=2022', options)
 	.then(response => response.json())
 	.then(response => {
 		console.log(response)
 		globalArray = response
 		renderGame(globalArray)
+		let splitDates = [...new Set(firstFour)];
+		splitDates.forEach(year =>{
+		const dropDownOption = document.createElement('option')
+		dropDownOption.textContent = year
+		releaseYears.append(dropDownOption)
+		
 		// console.log(globalArray)
 	})
-	.catch(err => console.error(err));
+		// .catch(err => console.error(err));
 
-}
+})
 
 
-// function populateDrop(){
-// // 	splitDates.forEach(year =>{
-// // 		const dropDownOption = document.createElement('option')
-// // 		dropDownOption.textContent = year
-// // 		releaseYears.append(dropDownOption)
-// // 		console.log('releaseYears:', releaseYears)
-// // 	})
-// // }
 
 let firstFour = [];
+
 
 function renderGame(globalArray){
 	const releaseYears = document.getElementById('releaseYears')
@@ -52,23 +51,34 @@ function renderGame(globalArray){
 		newImg.setAttribute('genre', globalArray[i].genre)
 		newImg.setAttribute('developer', globalArray[i].developer)
 		newImg.setAttribute('releaseDate', globalArray[i].release_date)
-		gameBar.append(newImg)
+		newImg.classList.add('gameIcon')
+		
+		// gameBar.append(newImg)
 		// const gameName = document.getElementById('name')
 		const gameName = document.getElementById('name')
 		newImg.addEventListener('click', showInfo)
 	}
-	let splitDates = [...new Set(firstFour)];
-	splitDates.forEach(year =>{
-		const dropDownOption = document.createElement('option')
-		dropDownOption.textContent = year
-		releaseYears.append(dropDownOption)
-	})
+	// let splitDates = [...new Set(firstFour)];
+	// splitDates.forEach(year =>{
+	// 	const dropDownOption = document.createElement('option')
+	// 	dropDownOption.textContent = year
+	// 	releaseYears.append(dropDownOption)
+	}
 	
 	releaseYears.addEventListener('change', ()=> {
-		const selectedYear = releaseYears.options[releaseYears.selectedIndex].value;
-		console.log(selectedYear)
-		console.log(splitDates)
-})
+		const selectedYear = releaseYears.options[releaseYears.selectedIndex].value
+		const gameIcon = document.getElementsByClassName('gameIcon')
+		const filtered = globalArray.filter(game =>{
+
+		})
+			// if(selectedYear === gameIcon.getAttribute('releaseDate').split('-')[0]){
+			// 	gameBar.append(gameIcon.src)
+		})
+		// console.log('releaseDate')
+
+		// console.log(selectedYear)
+		// console.log(splitDates)
+}
 
 
 
@@ -92,7 +102,6 @@ function showInfo(e){
 
 	
 
-}
 }
 
 	// gameData.forEach(game =>{
