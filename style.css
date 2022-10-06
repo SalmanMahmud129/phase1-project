@@ -12,6 +12,7 @@
     justify-content: space-around;
     align-items: center;
     padding-bottom: 3vh;
+    overflow-y: auto;
 }
 
 #gameInfo{

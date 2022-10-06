@@ -13,6 +13,7 @@ function fetcher(){
 fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?platform=browser&sort-by=release-date', options)
 	.then(response => response.json())
 	.then(response => {
+		formHandling()
 		console.log(response)
 		globalArray = response
 		renderGame(globalArray)
@@ -21,6 +22,7 @@ fetch('https://free-to-play-games-database.p.rapidapi.com/api/games?platform=bro
 		const dropDownOption = document.createElement('option')
 		dropDownOption.textContent = year
 		releaseYears.append(dropDownOption)
+		
 		
 		// console.log(globalArray)
 	})
@@ -108,6 +110,56 @@ function showInfo(e){
 	
 
 }
+
+
+function formHandling(){
+	//grab form elements
+	const form = document.querySelector('form#Rating')
+	const formInput = document.getElementById('ratingInput')
+	const formBtn = document.querySelector('input#submitButton')
+	const scoreSpan = document.querySelector('span#userScoreInput')
+
+	scoreSpan.textContent = "0"
+
+	form.addEventListener('submit',e =>{
+		e.preventDefault()
+
+		console.log(formInput.value)
+		if(parseInt(formInput.value) <= 10){
+		
+
+		const addedRating = parseInt(scoreSpan.textContent) + parseInt(formInput.value)
+		scoreSpan.textContent = addedRating
+		}
+		else{
+			alert("Too high of a score!")
+		}
+
+		
+	})
+
+	// formBtn.addEventListener('click',e =>{
+	// 	alert("Rating has been added! Whats gucci mane??????")
+	// })
+}
+
+function mouseHover(){
+	//grab elements
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// gameData.forEach(game =>{
 	// 	const gameBar = document.getElementById('game-bar')
