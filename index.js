@@ -56,6 +56,17 @@ function renderGame(globalArray){
 		newImg.setAttribute('releaseDate', globalArray[i].release_date)
 		newImg.classList.add('gameIcon')
 		
+		//add border for each image on hover
+		newImg.addEventListener('mouseenter',e => {
+			e.target.style.border = '5px solid white'
+			e.target.style.border.height = 'auto'
+			e.target.style.border.width = 'auto'
+			
+		})
+		newImg.addEventListener('mouseleave',e =>{
+			e.target.style.border = ''
+		})
+
 		gameBar.append(newImg)
 		// const gameName = document.getElementById('name')
 		const gameName = document.getElementById('name')
@@ -69,9 +80,10 @@ function renderGame(globalArray){
 	
 	releaseYears.addEventListener('change', (e)=> {
 		const selectedYear = releaseYears.options[releaseYears.selectedIndex].value
+		console.log(releaseYears.selectedIndex)
 		const gameIcons = Array.from(document.getElementsByClassName('gameIcon'))
 		const filteredGames = gameIcons.filter(game =>{
-			console.log(game.getAttribute('releaseDate'))
+			// console.log(game.getAttribute('releaseDate'))
 			if(selectedYear === game.getAttribute('releaseDate').split('-')[0]){
 				game.removeAttribute('hidden')
 			} else {
@@ -79,7 +91,7 @@ function renderGame(globalArray){
 			} 
 		})
 		document.querySelector('#game-bar')
-		console.log(filteredGames)
+		// console.log(filteredGames)
 		// console.log('releaseDate')
 	
 		// console.log(selectedYear)
@@ -101,6 +113,7 @@ function showInfo(e){
 	// displayImg.src = e.target.thumbnail
 	gameName.textContent = e.target.name
 	displayImg.src = e.target.src
+	displayImg.style.border = "5px solid white"
 	// genreTag.textContent = e.target.genre
 	genreTag.innerText = `Genre: ${e.target.getAttribute('genre')}`
 	// console.log(genreTag)
@@ -119,7 +132,7 @@ function formHandling(){
 	const formBtn = document.querySelector('input#submitButton')
 	const scoreSpan = document.querySelector('span#userScoreInput')
 
-	scoreSpan.textContent = "0"
+	scoreSpan.textContent = "0/10"
 
 	form.addEventListener('submit',e =>{
 		e.preventDefault()
@@ -129,7 +142,7 @@ function formHandling(){
 		
 
 		const addedRating = parseInt(scoreSpan.textContent) + parseInt(formInput.value)
-		scoreSpan.textContent = addedRating
+		scoreSpan.textContent = addedRating + "/10"
 		}
 		else{
 			alert("Too high of a score!")
